@@ -1,0 +1,8 @@
+server_socks5
+client_socks5
+*.obj
+*.exe
+**/.DS_Store
+.vscode
+src/client_socks5_min.cpp
+compile_win_minimal.bat
