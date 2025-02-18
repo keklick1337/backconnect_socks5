@@ -20,6 +20,7 @@
   #include <unistd.h>
   #include <netdb.h>
   #include <fcntl.h>
+  #include <signal.h>
   typedef int SocketType;
   #define CLOSESOCK close
   #define INVALID_SOCKET -1
@@ -361,6 +362,11 @@ int main(int argc, char* argv[]){
     if(!initSockets()){
         return 1;
     }
+
+    #ifndef _WIN32
+      signal(SIGPIPE, SIG_IGN);
+    #endif
+
     for(int i=1; i<argc; i++){
         std::string arg=argv[i];
         if(arg=="-s"){

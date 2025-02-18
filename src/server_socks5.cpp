@@ -20,6 +20,7 @@
   #include <arpa/inet.h>
   #include <unistd.h>
   #include <netdb.h>
+  #include <signal.h>
   typedef int SocketType;
   #define CLOSESOCK close
   #define INVALID_SOCKET -1
@@ -540,6 +541,11 @@ int main(int argc, char* argv[]){
     if(!initSockets()){
         return 1;
     }
+
+    #ifndef _WIN32
+      signal(SIGPIPE, SIG_IGN);
+    #endif
+
     uint16_t controlPort = 0, socksPort = 0;
     for(int i = 1; i < argc; i++){
         std::string arg = argv[i];
